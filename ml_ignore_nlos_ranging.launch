@@ -1,0 +1,19 @@
+<launch>
+    <arg default="/gtec/toa/ranging" name="topicRanging"></arg>
+    <arg default="/gtec/toa/ranging/filtered/ignore" name="topicOutputFixedRanging"></arg>
+    <arg default="3982.5" name="minRange"></arg>
+    <arg default="11648" name="maxRange"></arg>
+    <arg default="-96.1667" name="minRSS"></arg>
+    <arg default="-81.5000" name="maxRSS"></arg>
+    <arg default="1" name="mode"></arg>
+    <arg default="ignore" name="name"></arg>
+    <node name="nnfixer_$(arg name)" output="screen" pkg="gtec_rostoa" type="nnfixer">
+        <param name="mode" type="int" value="$(arg mode)" />
+        <param name="topicRanging" type="string" value="$(arg topicRanging)" />
+        <param name="topicOutputFixedRanging" type="string" value="$(arg topicOutputFixedRanging)" />
+        <param name="minRange" type="double" value="$(arg minRange)" />
+        <param name="maxRange" type="double" value="$(arg maxRange)" />
+        <param name="minRSS" type="double" value="$(arg minRSS)" />
+        <param name="maxRSS" type="double" value="$(arg maxRSS)" />
+    </node>
+</launch>

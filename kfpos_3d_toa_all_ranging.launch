@@ -1,19 +1,19 @@
 <launch>
-    <arg name="tagId"></arg>
+    <arg name="toaTagId"></arg>
     <arg default="20" name="rate"></arg>
     <arg default="0.5" name="accelNoise"></arg>
-    <arg default="0" name="magAngleOffset"></arg>
-    <arg default="/gtec/toa/ranging/filtered/ignore" name="rangingTopic"></arg>
+    <arg name="jolt" default="0.5"></arg>
+    <arg default="/gtec/toa/ranging" name="rangingTopic"></arg>
     <arg default="/gtec/toa/anchors" name="anchorsTopic"></arg>
-    <arg default="ALGORITHM_KF_UWB" name="algorithm"></arg>
-    <node name="kfpos_ignore_$(arg tagId)" output="screen" pkg="gtec_roskfpos" type="kfpos" launch-prefix="">
+    <arg default="ALGORITHM_KF_TOA" name="algorithm"></arg>
+    <node name="kfpos_uwb$(arg toaTagId)" output="screen" pkg="gtec_roskfpos" type="kfpos" launch-prefix="">
         <param name="rate" type="int" value="$(arg rate)" />
         <param name="accelNoise" type="double" value="$(arg accelNoise)"></param>
-        <param name="magAngleOffset" type="double" value="$(arg magAngleOffset)"></param>
-        <param name="targetDeviceId" type="string" value="tag_$(arg tagId)"></param>
+        <param name="jolt" type="double" value="$(arg jolt)"></param>
+        <param name="targetDeviceId" type="string" value="tag_$(arg toaTagId)"></param>
         <param name="rangingTopic" type="string" value="$(arg rangingTopic)"></param>
         <param name="anchorsTopic" type="string" value="$(arg anchorsTopic)"></param>
-        <param name="tagId" type="string" value="$(arg tagId)"></param>
+        <param name="toaTagId" type="string" value="$(arg toaTagId)"></param>
         <param name="algorithm" type="string" value="$(arg algorithm)"></param>
     </node>
 </launch>

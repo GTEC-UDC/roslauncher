@@ -1,0 +1,22 @@
+<launch>
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find gtec_roslauncher)/worlds/xoia_office.world"/>
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="false"/>
+    <arg name="headless" value="false"/>
+    <arg name="debug" value="false"/>
+    <arg name="verbose" value="true"/>
+  </include>
+
+  <arg name="marker_frequency" default="2" />
+  <arg name="marker_collision" default="false" />
+
+  <include file="$(find gazebo2rviz)/launch/gazebo2tf.launch" />
+  <include file="$(find gazebo2rviz)/launch/gazebo2marker.launch">
+    <arg name="frequency" value="$(arg marker_frequency)" />
+    <arg name="collision" value="$(arg marker_collision)" />
+  </include>
+
+</launch>

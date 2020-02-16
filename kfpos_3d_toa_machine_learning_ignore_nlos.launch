@@ -5,7 +5,7 @@
     <arg name="jolt" default="0.5"></arg>
     <arg default="/gtec/toa/ranging/filtered/ignore" name="rangingTopic"></arg>
     <arg default="/gtec/toa/anchors" name="anchorsTopic"></arg>
-    <arg default="ALGORITHM_KF_TOA_IMU" name="algorithm"></arg>
+    <arg default="ALGORITHM_KF_TOA" name="algorithm"></arg>
     <node name="kfpos_ignore_$(arg toaTagId)" output="screen" pkg="gtec_roskfpos" type="kfpos" launch-prefix="">
         <param name="rate" type="int" value="$(arg rate)" />
         <param name="accelNoise" type="double" value="$(arg accelNoise)"></param>
@@ -15,5 +15,6 @@
         <param name="anchorsTopic" type="string" value="$(arg anchorsTopic)"></param>
         <param name="toaTagId" type="string" value="$(arg toaTagId)"></param>
         <param name="algorithm" type="string" value="$(arg algorithm)"></param>
+        <param name="useStartPosition" type="int" value="0"/>
     </node>
 </launch>

@@ -15,5 +15,6 @@
         <param name="anchorsTopic" type="string" value="$(arg anchorsTopic)"></param>
         <param name="toaTagId" type="string" value="$(arg toaTagId)"></param>
         <param name="algorithm" type="string" value="$(arg algorithm)"></param>
+        <param name="useStartPosition" type="int" value="0"/>
     </node>
 </launch>

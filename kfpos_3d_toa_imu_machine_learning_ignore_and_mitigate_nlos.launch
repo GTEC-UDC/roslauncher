@@ -6,7 +6,7 @@
     <arg default="/gtec/toa/ranging/filtered/ignoreandmitigate" name="rangingTopic"></arg>
     <arg default="/gtec/toa/anchors" name="anchorsTopic"></arg>
     <arg default="ALGORITHM_KF_TOA_IMU" name="algorithm"></arg>
-    <node name="kfpos_ignore_mitigate_$(arg toaTagId)" output="screen" pkg="gtec_roskfpos" type="kfpos" launch-prefix="">
+    <node name="kfpos_toa_imu_ignore_mitigate_$(arg toaTagId)" output="screen" pkg="gtec_roskfpos" type="kfpos" launch-prefix="">
         <param name="rate" type="int" value="$(arg rate)" />
         <param name="accelNoise" type="double" value="$(arg accelNoise)"></param>
         <param name="jolt" type="double" value="$(arg jolt)"></param>

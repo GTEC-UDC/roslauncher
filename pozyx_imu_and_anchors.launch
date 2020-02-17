@@ -1,0 +1,23 @@
+<launch>
+	<arg default="/dev/ttyUSB0" name="usbPort"></arg>
+	<arg default="/gtec/uwb/ranging/pozyx" name="topicRangingPozyx"></arg>
+	<arg default="/gtec/toa/ranging" name="topicRanging"></arg>
+
+    <node name="anchors" output="screen" pkg="gtec_rostoa" type="anchors">
+        <param name="configBeacons" textfile="$(find gtec_roslauncher)/config/config_beacons.xml">
+        </param>
+    </node>
+ 	
+    <node name="pozyxrangingimu" output="screen" pkg="gtec_uwb_ranging" type="pozyxrangingimu">
+        <param name="usbPort" value="$(arg usbPort)" type="str"></param>
+        <param name="angleTopic" value="/mavros/global_position/compass_hdg" type="str"></param>
+        <param name="useAngle" value="0" type="int"></param>
+    </node>
+
+    <node name="pozyxfixer" output="screen" pkg="gtec_rostoa" type="pozyxfixer">
+    	<param name="topicOutputFixedRanging" type="string" value="$(arg topicRanging)" />
+    	<param name="topicRanging" type="string" value="$(arg topicRangingPozyx)" />
+        <param name="cableLength" type="double" value="0.0" />
+    </node>
+
+</launch>

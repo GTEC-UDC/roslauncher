@@ -1,6 +1,6 @@
 <launch>
     <arg name="toaTagId"></arg>
-    <arg default="20" name="rate"></arg>
+    <arg default="5" name="rate"></arg>
     <arg default="0.5" name="accelNoise"></arg>
     <arg name="jolt" default="0.5"></arg>
     <arg default="/gtec/toa/ranging" name="rangingTopic"></arg>

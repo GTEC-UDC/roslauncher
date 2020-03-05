@@ -1,6 +1,6 @@
 <launch>
     <arg name="toaTagId"></arg>
-    <arg default="20" name="rate"></arg>
+    <arg default="5" name="rate"></arg>
     <arg default="/gtec/toa/ranging" name="rangingTopic"></arg>
     <arg default="/gtec/toa/anchors" name="anchorsTopic"></arg>
     <arg default="ALGORITHM_ML" name="algorithm"></arg>

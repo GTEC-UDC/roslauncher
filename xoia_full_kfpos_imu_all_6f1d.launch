@@ -1,0 +1,38 @@
+<launch>
+    <node name="anchors" output="screen" pkg="gtec_rostoa" type="anchors">
+        <param name="configBeacons" textfile="$(find gtec_roslauncher)/config/config_beacons.xml">
+        </param>
+    </node>
+ 	
+    <node name="pozyxranging" output="screen" pkg="gtec_uwb_ranging" type="pozyxranging">
+        <param name="usbPort" value="/dev/ttyUSB0" type="str"></param>
+    </node>
+
+    <node name="pozyxfixer" output="screen" pkg="gtec_rostoa" type="pozyxfixer">
+    	<param name="topicOutputFixedRanging" type="string" value="/gtec/toa/ranging" />
+    	<param name="topicRanging" type="string" value="/gtec/uwb/ranging/pozyx" />
+        <param name="cableLength" type="double" value="0.0" />
+    </node>
+    
+    <node name="kfpos_toa_imu_all_6f1d" output="screen" pkg="gtec_roskfpos" type="kfpos" launch-prefix="">
+        <param name="rate" type="int" value="5" />
+        <param name="accelNoise" type="double" value="0.5"></param>
+        <param name="jolt" type="double" value="0.5"></param>
+        <param name="targetDeviceId" type="string" value="tag_6f1d"></param>
+        <param name="rangingTopic" type="string" value="/gtec/toa/ranging"></param>
+        <param name="anchorsTopic" type="string" value="/gtec/toa/anchors"></param>
+        <param name="toaTagId" type="string" value="6f1d"></param>
+        <param name="algorithm" type="string" value="ALGORITHM_KF_TOA_IMU"></param>
+        <param name="useStartPosition" type="int" value="0"/>
+    </node>
+
+    <node name="rtlspose" output="screen" pkg="gtec_rosrtls" type="rtlspose">
+        <param name="token" type="string" value="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTRhNTYyM2U3ZGEwMjA5NzExNDUyMzUiLCJpYXQiOjE1ODE5MzAwMTl9.zvDDVTOWXueKa2cv3SD2ZKJNIkla5Gyhh79JHeGLnJA" />
+        <param name="url" type="string" value="https://localhost:4433/api/targetdevices/" />
+        <param name="route" type="string" value="/positions" />
+        <param name="targetDeviceId" type="string" value="tag_6f1d" />
+        <param name="poseTopic" type="string" value="/gtec/kfpos_toa_imu_all_6f1d" />
+    </node>
+
+
+</launch>

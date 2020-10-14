@@ -4,7 +4,7 @@
         </param>
     </node>
  	
-    <node name="pozyxranging" output="screen" pkg="gtec_uwb_ranging" type="pozyxranging">
+    <node name="pozyxranging" output="screen" pkg="gtec_uwb_ranging" type="pozyxrangingimu">
         <param name="usbPort" value="/dev/ttyUSB0" type="str"></param>
     </node>
 
@@ -15,15 +15,20 @@
     </node>
     
     <node name="kfpos_toa_imu_all_6f1d" output="screen" pkg="gtec_roskfpos" type="kfpos" launch-prefix="">
-        <param name="rate" type="int" value="5" />
+        <param name="rate" type="int" value="30" />
         <param name="accelNoise" type="double" value="0.5"></param>
         <param name="jolt" type="double" value="0.5"></param>
         <param name="targetDeviceId" type="string" value="tag_6f1d"></param>
         <param name="rangingTopic" type="string" value="/gtec/toa/ranging"></param>
         <param name="anchorsTopic" type="string" value="/gtec/toa/anchors"></param>
+        <param name="imuTopic" type="string" value="/gtec/pozyx/imu"></param>
         <param name="toaTagId" type="string" value="6f1d"></param>
         <param name="algorithm" type="string" value="ALGORITHM_KF_TOA_IMU"></param>
         <param name="useStartPosition" type="int" value="0"/>
+        <param name="useImuFixedAccelerationCovariance" type="bool" value="true"></param>
+        <param name="imuFixedAccelerationCovariance" type="double" value="0.01"></param>
+        <param name="useImuFixedVelocityCovariance" type="bool" value="true"></param>
+        <param name="imuFixedVelocityCovariance" type="double" value="0.01"></param>
     </node>
 
     <node name="rtlspose" output="screen" pkg="gtec_rosrtls" type="rtlspose">

@@ -15,15 +15,19 @@
     </node>
     
     <node name="kfpos_toa_all_6f1d" output="screen" pkg="gtec_roskfpos" type="kfpos" launch-prefix="">
-        <param name="rate" type="int" value="5" />
-        <param name="accelNoise" type="double" value="0.5"></param>
-        <param name="jolt" type="double" value="0.5"></param>
+        <param name="rate" type="int" value="30" />
+        <param name="accelNoise" type="double" value="0.2"></param>
+        <param name="jolt" type="double" value="0.01"></param>
         <param name="targetDeviceId" type="string" value="tag_6f1d"></param>
         <param name="rangingTopic" type="string" value="/gtec/toa/ranging"></param>
         <param name="anchorsTopic" type="string" value="/gtec/toa/anchors"></param>
         <param name="toaTagId" type="string" value="6f1d"></param>
         <param name="algorithm" type="string" value="ALGORITHM_KF_TOA"></param>
-        <param name="useStartPosition" type="int" value="0"/>
+        <param name="initAngle" type="double" value="0" />
+        <param name="initPositionX" type="double" value="6.0" />
+        <param name="initPositionY" type="double" value="10.0" />
+        <param name="initPositionZ" type="double" value="1.5" />
+        <param name="useStartPosition" type="int" value="1"/>
     </node>
 
     <node name="rtlspose" output="screen" pkg="gtec_rosrtls" type="rtlspose">

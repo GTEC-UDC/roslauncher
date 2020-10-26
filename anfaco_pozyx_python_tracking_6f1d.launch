@@ -6,8 +6,8 @@
 
     <node name="PozyxPositionReaderPython" output="screen" pkg="gtec_uwb_ranging" type="PozyxPositionReaderPython.py">
         <param name="targetDeviceId" value="6a39"></param>
-        <param name="algorithm" value="POSITIONING_ALGORITHM_UWB_ONLY"></param>
-        <param name="dimension" value="DIMENSION_2_5D"></param>
+        <param name="algorithm" value="POSITIONING_ALGORITHM_TRACKING"></param>
+        <param name="dimension" value="DIMENSION_3D"></param>
         <param name="height" value="1000"></param>
     </node>
 
@@ -15,8 +15,8 @@
         <param name="token" type="string" value="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTRhNTYyM2U3ZGEwMjA5NzExNDUyMzUiLCJpYXQiOjE1ODE5MzAwMTl9.zvDDVTOWXueKa2cv3SD2ZKJNIkla5Gyhh79JHeGLnJA" />
         <param name="url" type="string" value="https://localhost:4433/api/targetdevices/" />
         <param name="route" type="string" value="/positions" />
-        <param name="targetDeviceId" type="string" value="tag_6f1d" />
-        <param name="poseTopic" type="string" value="/gtec/uwb/position/pozyx/6f1d" />
+        <param name="targetDeviceId" type="string" value="6a39" />
+        <param name="poseTopic" type="string" value="/gtec/uwb/position/pozyx/" />
     </node>
 
 

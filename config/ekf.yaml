@@ -133,7 +133,8 @@ world_frame: world           # Defaults to the value of odom_frame if unspecifie
 # odom1_twist_rejection_threshold: 0.2
 # odom1_nodelay: false
 
-pose0: /gtec/kfpos_toa_all_6f1d/tag_6f1d
+#pose0: /gtec/kfpos_toa_all_6f1d/tag_6f1d
+pose0: /gtec/uwb/position/pozyx/6a39
 pose0_config: [true,  true,  true,
                false, false, false,
                false, false, false,

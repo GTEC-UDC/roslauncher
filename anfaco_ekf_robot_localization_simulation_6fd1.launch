@@ -1,0 +1,24 @@
+<launch>
+
+    <node name="anchors" output="screen" pkg="gtec_rostoa" type="anchors">
+        <param name="configBeacons" textfile="$(find gtec_roslauncher)/config/config_beacons_anfaco.xml">
+        </param>
+    </node>
+
+    <node name="PozyxPositionReaderPython" output="screen" pkg="gtec_uwb_ranging" type="PozyxPositionReaderPython.py">
+        <param name="targetDeviceId" value="6a39"></param>
+        <param name="algorithm" value="POSITIONING_ALGORITHM_UWB_ONLY"></param>
+        <param name="dimension" value="DIMENSION_2_5D"></param>
+        <param name="height" value="1000"></param>
+    </node>
+
+  <node pkg="robot_localization" type="ekf_localization_node" name="ekf_se" clear_params="true">
+    <rosparam command="load" file="$(find gtec_roslauncher)/config/ekf.yaml" />
+
+    <!--  Placeholder for output topic remapping
+    <remap from="odometry/filtered" to=""/>
+    <remap from="accel/filtered" to=""/>
+    -->
+  </node>
+</launch>
+

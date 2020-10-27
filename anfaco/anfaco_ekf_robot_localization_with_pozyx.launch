@@ -1,0 +1,44 @@
+<launch>
+
+    <arg name="tagId" default="6a39"></arg>
+    <!-- <arg name="tagId" default="6f1d"></arg> -->
+
+    <node name="anchors" output="screen" pkg="gtec_rostoa" type="anchors">
+        <param name="configBeacons" textfile="$(find gtec_roslauncher)/config/config_beacons_anfaco.xml">
+        </param>
+    </node>
+
+    <node name="PozyxPositionReaderPython" output="screen" pkg="gtec_uwb_ranging" type="PozyxPositionReaderPython.py">
+        <param name="targetDeviceId" value="$(arg tagId)"></param>
+        <param name="algorithm" value="POSITIONING_ALGORITHM_TRACKING"></param>
+        <param name="dimension" value="DIMENSION_3D"></param>
+        <param name="height" value="1000"></param>
+    </node>
+
+  <node pkg="robot_localization" type="ekf_localization_node" name="ekf_se" clear_params="true">
+      <rosparam command="load" file="$(find gtec_roslauncher)/config/ekf_pose_and_imu.yaml" />
+      <param name="pose0" value="/gtec/uwb/position/pozyx/$(arg tagId)" />
+
+      <remap from="odometry/filtered" to="/gtec/ekf/odom/$(arg tagId)"/>
+    <!--  Placeholder for output topic remapping
+    
+    <remap from="accel/filtered" to=""/>
+    -->
+  </node>
+
+   <node name="odom_to_pose" pkg="topic_tools" type="transform"
+      args="/gtec/ekf/odom/$(arg tagId) /gtec/ekf/position/$(arg tagId) geometry_msgs/PoseWithCovarianceStamped 'geometry_msgs.msg.PoseWithCovarianceStamped(header=m.header,pose=m.pose)' --import geometry_msgs std_msgs" />
+
+
+    <node name="rtlspose" output="screen" pkg="gtec_rosrtls" type="rtlspose">
+        <param name="token" type="string" value="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTRhNTYyM2U3ZGEwMjA5NzExNDUyMzUiLCJpYXQiOjE1ODE5MzAwMTl9.zvDDVTOWXueKa2cv3SD2ZKJNIkla5Gyhh79JHeGLnJA" />
+        <param name="url" type="string" value="https://localhost:4433/api/targetdevices/" />
+        <param name="route" type="string" value="/positions" />
+        <param name="targetDeviceId" type="string" value="$(arg tagId)" />
+        <param name="poseTopic" type="string" value="/gtec/ekf/position/" />
+    </node>
+
+    <!-- <node pkg="tf" type="static_transform_publisher" name="odom2base_bcast" args= "0.0 0.0 0.0 0.0 0.0 0.0 1.0 odom base_link 50" /> -->
+
+</launch>
+

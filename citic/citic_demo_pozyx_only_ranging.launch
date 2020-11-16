@@ -1,0 +1,30 @@
+<launch>
+
+	  <arg name="tagId" default="6a39"></arg>
+    <!-- <arg name="tagId" default="6f1d"></arg> -->
+
+    <node name="anchors" output="screen" pkg="gtec_rostoa" type="anchors">
+        <param name="configBeacons" textfile="$(find gtec_roslauncher)/config/config_beacons_citic.xml">
+        </param>
+    </node> 
+
+     <node name="PozyxRangingReaderPython" output="screen" pkg="gtec_uwb_ranging" type="PozyxRangingReaderPython.py">
+        <param name="targetDeviceId" value="$(arg tagId)"></param>
+    </node> 
+
+    <!-- <node name="kfpos_toa_all" output="screen" pkg="gtec_roskfpos" type="kfpos" launch-prefix="">
+        <param name="rate" type="int" value="10" />
+        <param name="accelNoise" type="double" value="0.2"></param>
+        <param name="jolt" type="double" value="0.01"></param>
+        <param name="targetDeviceId" type="string" value="$(arg tagId)"></param>
+        <param name="rangingTopic" type="string" value="/gtec/uwb/ranging/pozyx"></param>
+        <param name="anchorsTopic" type="string" value="/gtec/toa/anchors"></param>
+        <param name="algorithm" type="string" value="ALGORITHM_KF_TOA"></param>
+        <param name="initAngle" type="double" value="0" />
+        <param name="initPositionX" type="double" value="2.0" />
+        <param name="initPositionY" type="double" value="2.0" />
+        <param name="initPositionZ" type="double" value="1.0" />
+        <param name="useStartPosition" type="int" value="1"/>
+    </node>  -->
+
+</launch>

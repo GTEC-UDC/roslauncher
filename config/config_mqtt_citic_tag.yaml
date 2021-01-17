@@ -2,15 +2,15 @@ mqtt:
   client:
     protocol: 4      # MQTTv311
   connection:
-    host: 192.168.1.161
-    port: 1883
+    host: 192.168.1.136
+    port: 1884
     keepalive: 120
 bridge:
   # Positions
   - factory: mqtt_bridge.bridge:RosToMqttBridge
     msg_type: geometry_msgs.msg:PoseWithCovarianceStamped
-    topic_from: /gtec/ekf/position/6a39
-    topic_to: /gtec/ekf/position/6a39
+    topic_from: /gtec/ekf/position/tag
+    topic_to: /gtec/ekf/position/tag
   - factory: mqtt_bridge.bridge:RosToMqttBridge
     msg_type: visualization_msgs.msg:MarkerArray
     topic_from: /gtec/toa/anchors

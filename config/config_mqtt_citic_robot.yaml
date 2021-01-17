@@ -1,0 +1,13 @@
+mqtt:
+  client:
+    protocol: 4      # MQTTv311
+  connection:
+    host: 192.168.1.136
+    port: 1884
+    keepalive: 120
+bridge:
+  # Positions
+  - factory: mqtt_bridge.bridge:RosToMqttBridge
+    msg_type: geometry_msgs.msg:PoseWithCovarianceStamped
+    topic_from: /amcl_pose
+    topic_to: /gtec/position/robot

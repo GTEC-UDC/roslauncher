@@ -14,23 +14,26 @@
         <param name="serial" value="$(arg usbPort)"></param>
     </node> 
 
-    <node pkg="trilateration" type="trilateration_node" name="trilateration_node" output="screen">
-		<param name="global_frame_name" value="world"/>
-		<param name="range_topic_name" value="/gtec/uwb/ranging/pozyx"/>
-        <param name="anchors_topic_name" value="/gtec/toa/anchors"/>
-		<param name="position_topic_name" value="/gtec/trilateration/$(arg tagId)"/>
-		<param name="loop_rate" value="10.0"/>
-		<param name="dim" value="2"/>
-	</node>
+
+    <arg name="rangingTopic" default="/gtec/uwb/ranging/pozyx"/>
+    <arg name="anchorsTopic" default="/gtec/toa/anchors"/>
+    <arg name="positionTopic" value="/gtec/discrete/$(arg tagId)"/>
+    <node name="DiscreteLocalizator" output="screen" pkg="gtec_roskfpos" type="DiscreteLocalization.py">
+        <param name="targetDeviceId" value="$(arg tagId)"></param>
+        <param name="rangingTopic" value="$(arg rangingTopic)"/>
+        <param name="anchorsTopic" value="$(arg anchorsTopic)"/>
+        <param name="positionTopic" value="$(arg positionTopic)"/>
+    </node>
 
     <node pkg="robot_localization" type="ekf_localization_node" name="ekf_se" clear_params="true">
       <rosparam command="load" file="$(find gtec_roslauncher)/config/ekf_pose.yaml" />
-      <param name="pose0" value="/gtec/trilateration/$(arg tagId)" />
-      <remap from="odometry/filtered" to="/gtec/trilateration/ekf/odom/$(arg tagId)"/>
+      <param name="pose0" value="/gtec/discrete/$(arg tagId)" />
+      <remap from="odometry/filtered" to="/gtec/discrete/ekf/odom/$(arg tagId)"/>
     </node> 
 
    <node name="odom_to_pose" pkg="topic_tools" type="transform"
-      args="/gtec/trilateration/ekf/odom/$(arg tagId) /gtec/ekf/position/tag geometry_msgs/PoseWithCovarianceStamped 'geometry_msgs.msg.PoseWithCovarianceStamped(header=m.header,pose=m.pose)' --import geometry_msgs std_msgs" />
+      args="/gtec/discrete/ekf/odom/$(arg tagId) /gtec/ekf/position/tag geometry_msgs/PoseWithCovarianceStamped 'geometry_msgs.msg.PoseWithCovarianceStamped(header=m.header,pose=m.pose)' --import geometry_msgs std_msgs" />
+
 
     <node name="mqtt_bridge" pkg="mqtt_bridge" type="mqtt_bridge_node.py" output="screen">
         <rosparam file="$(find gtec_roslauncher)/config/config_mqtt_citic_tag.yaml" command="load" />

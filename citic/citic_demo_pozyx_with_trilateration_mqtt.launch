@@ -1,0 +1,31 @@
+<launch>
+
+	  <arg name="tagId" default="6a39"></arg>
+      <arg name="usbPort" default="/dev/ttyUSB0"></arg>
+    <!-- <arg name="tagId" default="6f1d"></arg> -->
+
+    <node name="anchors" output="screen" pkg="gtec_rostoa" type="anchors">
+        <param name="configBeacons" textfile="$(find gtec_roslauncher)/config/config_beacons_citic.xml">
+        </param>
+    </node> 
+
+     <node name="PozyxRangingReaderPython" output="screen" pkg="gtec_uwb_ranging" type="PozyxRangingReaderPython.py">
+        <param name="targetDeviceId" value="$(arg tagId)"></param>
+        <param name="serial" value="$(arg usbPort)"></param>
+    </node> 
+
+    <node pkg="trilateration" type="trilateration_node" name="trilateration_node" output="screen">
+		<param name="global_frame_name" value="world"/>
+		<param name="range_topic_name" value="/gtec/uwb/ranging/pozyx"/>
+        <param name="anchors_topic_name" value="/gtec/toa/anchors"/>
+		<param name="position_topic_name" value="/gtec/ekf/position/tag"/>
+		<param name="loop_rate" value="10.0"/>
+		<param name="dim" value="2"/>
+	</node>
+
+    <node name="mqtt_bridge" pkg="mqtt_bridge" type="mqtt_bridge_node.py" output="screen">
+        <rosparam file="$(find gtec_roslauncher)/config/config_mqtt_citic_tag.yaml" command="load" />
+    </node>
+
+    
+</launch>

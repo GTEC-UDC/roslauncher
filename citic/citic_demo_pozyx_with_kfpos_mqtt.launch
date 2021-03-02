@@ -1,7 +1,7 @@
 <launch>
 
-	  <arg name="tagId" default="6a39"></arg>
-      <arg name="usbPort" default="/dev/ttyUSB0"></arg>
+	  <arg name="tagId" default="6f2f"></arg>
+      <arg name="usbPort" default="/dev/ttyACM0"></arg>
     <!-- <arg name="tagId" default="6f1d"></arg> -->
 
     <node name="anchors" output="screen" pkg="gtec_rostoa" type="anchors">
@@ -33,7 +33,6 @@
    <node pkg="robot_localization" type="ekf_localization_node" name="ekf_se" clear_params="true">
       <rosparam command="load" file="$(find gtec_roslauncher)/config/ekf_pose.yaml" />
       <param name="pose0" value="/gtec/kfpos_toa_all/$(arg tagId)" />
-
       <remap from="odometry/filtered" to="/gtec/ekf/odom/$(arg tagId)"/>
   </node> 
 

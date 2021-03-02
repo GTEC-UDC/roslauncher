@@ -1,6 +1,7 @@
 <launch>
 
-	  <arg name="tagId" default="6a39"></arg>
+	  <arg name="tagId" default="6f2f"></arg>
+      <arg name="usbPort" default="/dev/ttyACM0"></arg>
     <!-- <arg name="tagId" default="6f1d"></arg> -->
 
     <node name="anchors" output="screen" pkg="gtec_rostoa" type="anchors">
@@ -10,6 +11,7 @@
 
      <node name="PozyxRangingReaderPython" output="screen" pkg="gtec_uwb_ranging" type="PozyxRangingReaderPython.py">
         <param name="targetDeviceId" value="$(arg tagId)"></param>
+<param name="serial" value="$(arg usbPort)"></param>
     </node> 
 
     <!-- <node name="kfpos_toa_all" output="screen" pkg="gtec_roskfpos" type="kfpos" launch-prefix="">

@@ -1,9 +1,8 @@
 <config>
- <anc ID="6f2f" label="0x6f2f" x="0" y="0" z="1.172"/>
- <anc ID="6e74" label="0x6e74" x="1" y="4.487" z="0.206"/>
- <anc ID="6040" label="0x6040" x="4.069" y="4.487" z="1.203"/>
- <anc ID="6e5b" label="0x6e5b" x="3.993" y="2.988" z="1.045"/>
- <anc ID="6030" label="0x6030" x="3.700" y="0.842" z="0.375"/>
+ <anc ID="6f7a" label="0x6f7a" x="0" y="0" z="2.794"/>
+ <anc ID="0c0b" label="0x0c0b" x="0" y="5.45" z="2.794"/>
+ <anc ID="0c24" label="0x0c24" x="9.755" y="5.45" z="2.794"/>
+ <anc ID="6f66" label="0x6f66" x="9.755" y="0" z="2.794"/>
 </config>
 
 <!--

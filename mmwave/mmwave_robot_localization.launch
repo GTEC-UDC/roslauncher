@@ -1,0 +1,8 @@
+<launch>
+  <node pkg="robot_localization" type="ekf_localization_node" name="ekf_se" clear_params="true">
+      <rosparam command="load" file="$(find gtec_roslauncher)/mmwave/mmwave_ekf_pose.yaml" />
+      <param name="pose0" value="/gtec/mmwave/cluster/optics/pose/0" />
+      <param name="world_frame" value="odom" />
+  </node>
+</launch>
+

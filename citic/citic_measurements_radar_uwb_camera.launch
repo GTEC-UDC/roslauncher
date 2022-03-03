@@ -1,0 +1,70 @@
+<launch>
+
+    <!-- ****************** UWB ******************* -->
+    <!-- Anchor to publish anchor positions-->
+    <node name="anchors" output="screen" pkg="gtec_rostoa" type="anchors">
+        <param name="configBeacons" textfile="$(find gtec_roslauncher)/config/config_beacons_citic.xml">
+        </param>
+    </node>
+
+    <!-- UWB Reader -->
+ 	<arg default="/dev/ttyACM0" name="usbPort"></arg>
+    <arg default="6757" name="targetDeviceId"></arg>
+    <arg default="POSITIONING_ALGORITHM_UWB_ONLY" name="algorithm"></arg>
+    <arg default="DIMENSION_2_5D" name="dimension"></arg>
+    <arg default="1200" name="height"></arg>
+    <node name="PozyxPositionReaderPython" output="screen" pkg="gtec_uwb_ranging" type="PozyxPositionReaderPython.py">
+        <param name="usbPort" value="$(arg usbPort)"></param>
+        <param name="targetDeviceId" value="$(arg targetDeviceId)"></param>
+        <param name="algorithm" value="$(arg algorithm)"></param>
+        <param name="dimension" value="$(arg dimension)"></param>
+        <param name="height" value="$(arg height)"></param>
+    </node>
+
+    <!-- ****************** mmWave ******************* -->
+
+    <arg default="/dev/ttyUSB0" name="uart_port"></arg>
+    <arg default="/dev/ttyUSB1" name="data_port"></arg>
+    <arg default="/home/valba/ti/mmwave_industrial_toolbox_4_9_0/labs/people_counting/visualizer/chirp_configs/3D_People_Counting/ISK_6m_default.cfg" name="config_file_path"></arg>
+    
+    <arg default="/gtec/mmwave/radar" name="publish_radar_topic"></arg>
+    <arg default="/gtec/mmwave/cloud" name="publish_cloud_topic"></arg>
+    <arg default="/gtec/mmwave/target" name="publish_target_topic"></arg>
+
+    <node name="IWR6843ISKReader" output="screen" pkg="gtec_mmwave_reader" type="IWR6843ISK_reader.py">
+        <param name="uart_port" value="$(arg uart_port)"></param>
+        <param name="data_port" value="$(arg data_port)"></param>
+        <param name="config_file_path" value="$(arg config_file_path)"></param>
+        <param name="publish_radar_topic" value="$(arg publish_radar_topic)"></param>
+        <param name="publish_cloud_topic" value="$(arg publish_cloud_topic)"></param>
+        <param name="publish_target_topic" value="$(arg publish_target_topic)"></param>
+    </node>
+    
+
+    <!-- ****************** RTSP camera ******************* -->
+
+
+    <arg name="camera_name" default="rtsp_camera" />
+    <arg name="camera_frame" default="rtsp_camera_link" />
+    <arg name="image_raw_topic" default="image_raw" />
+    <arg name="camera_info_topic" default="camera_info" />
+
+    <arg name="hostname" doc="hostname or IP of the rtsp camera" default="192.168.0.4" />
+    <arg name="username" doc="username for the rtsp camera" default=""/>
+    <arg name="password" doc="password for the rtsp camera" default=""/>
+    <arg name="port" default="554" doc="port of the rtsp camera" />
+    <arg name="stream" doc="name of the video stream published by the rtsp camera" default="11"/>
+
+    <group ns="$(arg camera_name)">
+        <node pkg="rtsp_ros_driver" type="rtsp_driver_node" name="rtsp_driver_node" output="screen">
+            <param name="rtsp_resource" value="rtsp://$(arg username):$(arg password)@$(arg hostname):$(arg port)/$(arg stream)" />
+            <param name="camera_name" value="$(arg camera_name)" />
+            <param name="camera_frame" value="$(arg camera_frame)" />
+            <param name="image_raw_topic" value="$(arg image_raw_topic)" />
+            <param name="camera_info_topic" value="$(arg camera_info_topic)" />
+        </node>
+    </group>
+
+
+
+</launch>

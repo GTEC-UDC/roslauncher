@@ -5,6 +5,7 @@
     <arg name="jolt" default="0.5"></arg>
     <arg default="/gtec/toa/ranging" name="rangingTopic"></arg>
     <arg default="/gtec/toa/anchors" name="anchorsTopic"></arg>
+    <arg default="/gtec/uwb/imu/pozyx" name="imuTopic"></arg>
     <arg default="ALGORITHM_KF_TOA_IMU" name="algorithm"></arg>
     <node name="kfpos_toa_imu_all_$(arg toaTagId)" output="screen" pkg="gtec_roskfpos" type="kfpos" launch-prefix="">
         <param name="rate" type="int" value="$(arg rate)" />
@@ -13,6 +14,7 @@
         <param name="targetDeviceId" type="string" value="tag_$(arg toaTagId)"></param>
         <param name="rangingTopic" type="string" value="$(arg rangingTopic)"></param>
         <param name="anchorsTopic" type="string" value="$(arg anchorsTopic)"></param>
+        <param name="imuTopic" type="string" value="$(arg imuTopic)"></param>
         <param name="toaTagId" type="string" value="$(arg toaTagId)"></param>
         <param name="algorithm" type="string" value="$(arg algorithm)"></param>
         <param name="useStartPosition" type="int" value="0"/>
